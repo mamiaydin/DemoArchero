@@ -24,16 +24,13 @@ public class KeyboardPlayerMover : MonoBehaviour,IPlayerMover
             return; 
         }
 
-        _isMoving = true;    
+        _isMoving = true;
         
-        verticalSpeed *= Time.deltaTime;
-        horizontalSpeed *= Time.deltaTime;
         var movementVector = new Vector3{x=horizontalSpeed, z = verticalSpeed};
         movementVector.Normalize();
-        movementVector *= speed;
+        movementVector *= speed * Time.deltaTime;
         transform.position += movementVector;
         var degreeMovementVector = Mathf.Atan2(movementVector.x, movementVector.z) * Mathf.Rad2Deg;
-        Debug.Log($"degreeMovementVector== {degreeMovementVector}");
         transform.rotation = Quaternion.Euler(0,degreeMovementVector,0);
         
     }
