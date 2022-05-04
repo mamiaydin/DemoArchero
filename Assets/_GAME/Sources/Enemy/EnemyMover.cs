@@ -9,21 +9,23 @@ public class EnemyMover : MonoBehaviour,IEnemyMover
 
     public float speed = 0.1f;
     public float distance = 2.0f;
-    private KeyboardPlayerMover player;
+    private KeyboardPlayerMover _player;
     // Start is called before the first frame update
-    void Awake()
+    void Start()
     {
-        player = FindObjectOfType<KeyboardPlayerMover>();
+        _player = KeyboardPlayerMover.Instance;
     }
 
     // Update is called once per frame
     void Update()
     {
         
-        var lookAtGoal = new Vector3(player.transform.position.x, 
+        var lookAtGoal = new Vector3(_player.transform.position.x, 
             this.transform.position.y, 
-            player.transform.position.z);
+            _player.transform.position.z);
         var direction = lookAtGoal - this.transform.position;
+        var degreeMovementVector = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg;
+        transform.rotation = Quaternion.Euler(0,degreeMovementVector,0);
         if (direction.magnitude <= distance)
         {
             _canAttack = true;
@@ -33,8 +35,6 @@ public class EnemyMover : MonoBehaviour,IEnemyMover
        
         direction *= speed * Time.deltaTime;
         transform.position += direction;
-        var degreeMovementVector = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg;
-        transform.rotation = Quaternion.Euler(0,degreeMovementVector,0);
         
     }
 

@@ -1,12 +1,12 @@
 using UnityEngine;
 
-public class KeyboardPlayerMover : MonoBehaviour,IPlayerMover
+public class KeyboardPlayerMover : SingletonMonobehavior<KeyboardPlayerMover>,IPlayerMover
 {
+    
     private bool _isMoving;
     
     public float speed = 10.0F;
-    public float rotationSpeed = 100.0F;
-    
+
     // Start is called before the first frame update
     void Start()
     {
