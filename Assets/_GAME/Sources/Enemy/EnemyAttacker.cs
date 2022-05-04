@@ -6,10 +6,19 @@ using Vector3 = UnityEngine.Vector3;
 public class EnemyAttacker : MonoBehaviour
 {
     public Transform animationTransform;
-    void Attack()
+    public KeyboardPlayerMover _player;
+    public float distance = 2.0f;
+    public bool CanAttack => _CanAttack();
+
+    void Start()
+    {
+        _player = KeyboardPlayerMover.Instance;
+    }
+    
+    public void Attack()
     {
         var attackSequence = DOTween.Sequence();
-        attackSequence.AppendInterval(0.05f);
+        attackSequence.AppendInterval(0.1f);
         attackSequence.AppendCallback(TryToHit);
         
         var animationSequence = DOTween.Sequence();
@@ -23,7 +32,7 @@ public class EnemyAttacker : MonoBehaviour
 
     }
     
-    void StopAttack()
+    public void StopAttack()
     {
         // animation stopped where it is currently
         //animationSequence.Kill();
@@ -31,8 +40,9 @@ public class EnemyAttacker : MonoBehaviour
         animationTransform.DOComplete();
     }
 
-    void TryToHit()
+    public void TryToHit()
     {
+        
         Debug.Log("success");
     }
     
@@ -48,4 +58,14 @@ public class EnemyAttacker : MonoBehaviour
             StopAttack();
         }
     }
+
+    private bool _CanAttack()
+    {
+        var lookAtGoal = new Vector3(_player.transform.position.x, 
+            this.transform.position.y, 
+            _player.transform.position.z);
+        var direction = lookAtGoal - this.transform.position;
+        return direction.magnitude < distance;
+    }
+    
 }

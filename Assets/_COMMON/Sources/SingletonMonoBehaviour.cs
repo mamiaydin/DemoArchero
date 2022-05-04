@@ -11,7 +11,7 @@ public abstract class SingletonMonobehavior<T> : MonoBehaviour where T : MonoBeh
             Destroy(gameObject);
             return;
         }
-        Instance = (T)this.GetComponent<T>();
+        Instance = GetComponent<T>();
     }
 
     private void OnDestroy()
