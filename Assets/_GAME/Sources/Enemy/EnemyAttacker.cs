@@ -18,6 +18,9 @@ public class EnemyAttacker : MonoBehaviour
     
     public void Attack()
     {
+        if (IsAttacking)
+            return;
+        
         IsAttacking = true;
         var attackSequence = DOTween.Sequence();
         attackSequence.AppendInterval(0.1f);

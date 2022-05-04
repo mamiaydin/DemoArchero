@@ -17,21 +17,16 @@ namespace Assets._GAME.Sources.Enemy
         
         void Update()
         {
-            if (_enemyAttacker.CanAttack)
+            var canAttack = _enemyAttacker.CanAttack;
+            _enemyMover.Move(canAttack);
+            
+            if (canAttack)
             {
-                //TODO: enemy can still rotate 
-                //TODO: this method runs twice
-                if (_enemyAttacker.IsAttacking)
-                {
-                    _enemyMover.Move(true);
-                    return;
-                }
                 _enemyAttacker.Attack();
             }
             else
             {
                 _enemyAttacker.StopAttack();
-                _enemyMover.Move(false);
             }
         }
     }
