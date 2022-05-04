@@ -370,6 +370,24 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 797609ebf38c843a5b550e14ac3c0582, type: 3}
+--- !u!1 &2086543119 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7491902333256406497, guid: 797609ebf38c843a5b550e14ac3c0582, type: 3}
+  m_PrefabInstance: {fileID: 1794794299}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2086543126
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2086543119}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb7b7dab05c0a4dd6989e1a9082de2bd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Health: 100
 --- !u!1 &2774234475302856912
 GameObject:
   m_ObjectHideFlags: 0
@@ -483,7 +501,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 5
-  rotationSpeed: 100
 --- !u!65 &2774234477017426624
 BoxCollider:
   m_ObjectHideFlags: 0

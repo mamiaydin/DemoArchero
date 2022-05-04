@@ -5,8 +5,6 @@ using UnityEngine;
 
 public class EnemyMover : MonoBehaviour
 {
-    
-
     public float speed = 0.1f;
     private KeyboardPlayerMover _player;
     // Start is called before the first frame update
@@ -16,9 +14,8 @@ public class EnemyMover : MonoBehaviour
     }
 
     // Update is called once per frame
-    public void Move()
+    public void Move(bool onlyRotate)
     {
-        
         var lookAtGoal = new Vector3(_player.transform.position.x, 
             this.transform.position.y, 
             _player.transform.position.z);
@@ -26,7 +23,8 @@ public class EnemyMover : MonoBehaviour
         var degreeMovementVector = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg;
         transform.rotation = Quaternion.Euler(0,degreeMovementVector,0);
         direction.Normalize();
-       
+        
+        if (onlyRotate) return;
         direction *= speed * Time.deltaTime;
         transform.position += direction;
         

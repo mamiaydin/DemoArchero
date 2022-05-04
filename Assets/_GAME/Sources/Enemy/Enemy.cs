@@ -21,11 +21,17 @@ namespace Assets._GAME.Sources.Enemy
             {
                 //TODO: enemy can still rotate 
                 //TODO: this method runs twice
+                if (_enemyAttacker.IsAttacking)
+                {
+                    _enemyMover.Move(true);
+                    return;
+                }
                 _enemyAttacker.Attack();
             }
             else
             {
-                _enemyMover.Move();
+                _enemyAttacker.StopAttack();
+                _enemyMover.Move(false);
             }
         }
     }

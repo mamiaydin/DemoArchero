@@ -6,9 +6,10 @@ using Vector3 = UnityEngine.Vector3;
 public class EnemyAttacker : MonoBehaviour
 {
     public Transform animationTransform;
-    public KeyboardPlayerMover _player;
+    private KeyboardPlayerMover _player;
     public float distance = 2.0f;
     public bool CanAttack => _CanAttack();
+    public bool IsAttacking = false;
 
     void Start()
     {
@@ -17,6 +18,7 @@ public class EnemyAttacker : MonoBehaviour
     
     public void Attack()
     {
+        IsAttacking = true;
         var attackSequence = DOTween.Sequence();
         attackSequence.AppendInterval(0.1f);
         attackSequence.AppendCallback(TryToHit);
@@ -29,7 +31,7 @@ public class EnemyAttacker : MonoBehaviour
         animationSequence.Join(animationTransform.DOScale(Vector3.one,0.2f));
         animationSequence.Append(animationTransform.DOLocalRotate(Vector3.zero, 0.4f).SetEase(Ease.InCubic));
         animationSequence.SetTarget(animationTransform);
-
+        animationSequence.OnComplete(StopAttack);
     }
     
     public void StopAttack()
@@ -38,6 +40,7 @@ public class EnemyAttacker : MonoBehaviour
         //animationSequence.Kill();
         // animation complete and stop
         animationTransform.DOComplete();
+        IsAttacking = false;
     }
 
     public void TryToHit()
