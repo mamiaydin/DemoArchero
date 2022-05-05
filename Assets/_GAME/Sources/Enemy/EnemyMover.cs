@@ -1,16 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
-using Assets._GAME.Sources.Enemy;
 using UnityEngine;
 
 public class EnemyMover : MonoBehaviour
 {
     public float speed = 0.1f;
-    private KeyboardPlayerMover _player;
+    private Player _player;
     // Start is called before the first frame update
     void Start()
     {
-        _player = KeyboardPlayerMover.Instance;
+        _player = Player.Instance;
     }
 
     // Update is called once per frame

@@ -6,14 +6,15 @@ using Vector3 = UnityEngine.Vector3;
 public class EnemyAttacker : MonoBehaviour
 {
     public Transform animationTransform;
-    private KeyboardPlayerMover _player;
+    private Player _player;
     public float distance = 2.0f;
+    public float damage = 20.0f;
     public bool CanAttack => _CanAttack();
-    public bool IsAttacking = false;
+    public bool IsAttacking;
 
     void Start()
     {
-        _player = KeyboardPlayerMover.Instance;
+        _player = Player.Instance;
     }
     
     public void Attack()
@@ -48,8 +49,10 @@ public class EnemyAttacker : MonoBehaviour
 
     public void TryToHit()
     {
-        
-        Debug.Log("success");
+        if (CanAttack)
+        {
+            _player.ReceiveDamage(damage);
+        }
     }
     
     void Update()
