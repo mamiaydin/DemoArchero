@@ -14,6 +14,7 @@ public class PlayerAttacker : MonoBehaviour
     public GameObject bulletPrefab;
     public float bulletSpeed = 200.0f;
     
+    [HideInInspector]
     public bool IsAttacking;
 
     void Start()
@@ -67,7 +68,8 @@ public class PlayerAttacker : MonoBehaviour
         animationSequence.Append(attackSequence);
         animationSequence.Append(animationTransform.DOLocalRotate(new Vector3(0, 0, 0), 0.3f).SetEase(Ease.InSine));
         animationSequence.Join(animationTransform.DOScale(Vector3.one,0.3f));
-        
+        //animationTransform added to sequence
+        animationSequence.SetTarget(animationTransform);
         animationSequence.OnComplete(StopAttack);
     }
     
@@ -84,12 +86,14 @@ public class PlayerAttacker : MonoBehaviour
     {
         var bulletGo = Instantiate(bulletPrefab, transform.position, Quaternion.identity);
         var enemy = FindClosestEnemy();
+        
         if (enemy == null)
         {
             Debug.Log("Level Cleared!");
             return;
         }
         
+        Debug.Log(enemy.name);
         //TODO : fix rotation
         var lookAtGoal = new Vector3(enemy.transform.position.x, 
             this.transform.position.y, 
@@ -101,6 +105,5 @@ public class PlayerAttacker : MonoBehaviour
 
         var b = bulletGo.GetComponent<Rigidbody>();
         b.AddRelativeForce( transform.forward  * bulletSpeed);
-        Destroy(bulletGo,4);
     }
 }

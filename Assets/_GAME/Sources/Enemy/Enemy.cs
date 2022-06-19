@@ -1,3 +1,4 @@
+using DG.Tweening;
 using UnityEngine;
 
 
@@ -18,6 +19,14 @@ public class Enemy : SingletonMonobehavior<Enemy>
     {
         Debug.Log($"dealing damage == {damage}");
         Health -= damage;
+        transform.DOKill();
+        //todo move to awake
+        var meshRenderer = GetComponent<MeshRenderer>();
+            
+        var seq = DOTween.Sequence();
+        var initialColour = meshRenderer.material.color;
+        seq.Append(meshRenderer.material.DOColor(Color.white, 0.1f));
+        seq.Append(meshRenderer.material.DOColor(initialColour, 0.1f));
     }
 
     void Update()

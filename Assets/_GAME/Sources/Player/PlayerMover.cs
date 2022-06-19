@@ -31,6 +31,7 @@ public class PlayerMover : MonoBehaviour,IPlayerMover
             _playerAttacker.Attack();
             return; 
         }
+        _playerAttacker.StopAttack();
 
         _isMoving = true;
         
